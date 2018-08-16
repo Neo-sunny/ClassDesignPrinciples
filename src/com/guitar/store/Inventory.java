@@ -12,14 +12,14 @@ public class Inventory {
 		guitars = new ArrayList<>();
 		addGuitar();
 	}
-	
+
 	public void addGuitar() {
-		GuitarSpec gs1 = new GuitarSpec("m1", Builder.COLLINGS, Type.ACOUSTIC, Wood.ALDER, Wood.ADIRONDACK);
-		GuitarSpec gs2 = new GuitarSpec("m2", Builder.COLLINGS, Type.ELECTRIC, Wood.ALDER, Wood.ADIRONDACK);
-		GuitarSpec gs3 = new GuitarSpec("m3", Builder.FENDER, Type.ACOUSTIC, Wood.ALDER, Wood.BRAZILIAN_ROSEWOOD);
-		GuitarSpec gs4 = new GuitarSpec("m4", Builder.FENDER, Type.ELECTRIC, Wood.CEDAR, Wood.ADIRONDACK);
-		GuitarSpec gs5 = new GuitarSpec("Stratocastor", Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
-		GuitarSpec gs6 = new GuitarSpec("Stratocastor", Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
+		GuitarSpec gs1 = new GuitarSpec("m1", Builder.COLLINGS, Type.ACOUSTIC, Wood.ALDER, Wood.ADIRONDACK, 10);
+		GuitarSpec gs2 = new GuitarSpec("m2", Builder.COLLINGS, Type.ELECTRIC, Wood.ALDER, Wood.ADIRONDACK, 11);
+		GuitarSpec gs3 = new GuitarSpec("m3", Builder.FENDER, Type.ACOUSTIC, Wood.ALDER, Wood.BRAZILIAN_ROSEWOOD, 12);
+		GuitarSpec gs4 = new GuitarSpec("m4", Builder.FENDER, Type.ELECTRIC, Wood.CEDAR, Wood.ADIRONDACK, 10);
+		GuitarSpec gs5 = new GuitarSpec("Stratocastor", Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12);
+		GuitarSpec gs6 = new GuitarSpec("Stratocastor", Builder.FENDER, Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12);
 
 		guitars.add(new Guitar("123", 200, gs1));
 		guitars.add(new Guitar("234", 300, gs2));
@@ -34,24 +34,10 @@ public class Inventory {
 		List<Guitar> matchingGuitars = new ArrayList<>();
 		for (Iterator<Guitar> i = guitars.iterator(); i.hasNext();) {
 			Guitar guitar = (Guitar) i.next();
+			if (guitar.getSpec().matches(searchGuitar)) {
+				matchingGuitars.add(guitar);
+			}
 
-			if (searchGuitar.getBuilder() != guitar.getSpec().getBuilder())
-				continue;
-
-			String model = searchGuitar.getModel();
-			if (!model.equals(null) && (!model.equals("")) && (!model.equals(guitar.getSpec().getModel())))
-				continue;
-
-			if (searchGuitar.getType() != guitar.getSpec().getType())
-				continue;
-
-			if (searchGuitar.getBackwood() != guitar.getSpec().getBackwood())
-				continue;
-
-			if (searchGuitar.getTopwood() != guitar.getSpec().getTopwood())
-				continue;
-
-			matchingGuitars.add(guitar);
 		}
 		return matchingGuitars;
 	}
